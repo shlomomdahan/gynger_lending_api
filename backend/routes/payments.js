@@ -111,7 +111,7 @@ async function updatePaymentStatus(referenceId, loanID, amount) {
   };
 
   checkStatus();
-  const intervalId = setInterval(checkStatus, 31000);
+  const intervalId = setInterval(checkStatus, 35000);
 }
 
 async function updateLoanBalance(loanID, amount) {
