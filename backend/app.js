@@ -6,16 +6,16 @@ const port = 3000;
 const signersRoutes = require("./routes/signers");
 const loansRoutes = require("./routes/loans");
 const paymentsRoutes = require("./routes/payments");
+const deleteRoutes = require("./routes/clear");
 
-// Enable CORS for all routes
 app.use(cors());
 
 app.use(express.json());
 
-// Update the route paths to include '/api'
 app.use("/signers", signersRoutes);
 app.use("/loans", loansRoutes);
 app.use("/payments", paymentsRoutes);
+app.use("/clear", deleteRoutes);
 
 // Test route
 app.get("/", (req, res) => {

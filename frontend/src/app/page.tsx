@@ -86,6 +86,18 @@ export default function Home() {
     }
   };
 
+  const clearData = async () => {
+    console.log("Clearing data...");
+    try {
+      await axios.delete("http://localhost:3000/clear/all");
+      fetchSigners();
+      fetchLoans();
+      fetchPayments();
+    } catch (error) {
+      console.error("Error clearing data:", error);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen w-full bg-gray-100">
       <header className="bg-white shadow">
@@ -97,6 +109,14 @@ export default function Home() {
       </header>
 
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex justify-start mb-4">
+          <button
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            onClick={clearData}
+          >
+            Clear Data
+          </button>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-gray-300 shadow rounded-lg p-6">
             <h2 className="text-lg font-semibold mb-4 text-black text-center">
@@ -119,7 +139,6 @@ export default function Home() {
             <PaymentForm onSubmitSuccess={fetchPayments} />
           </div>
         </div>
-
         <div className="space-y-8">
           <SignersTable signers={signers} />
           <LoansTable loans={loans} />
