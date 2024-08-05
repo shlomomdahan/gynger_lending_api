@@ -69,21 +69,22 @@ export default function Home() {
   };
 
   const fetchPayments = async () => {
-    try {
-      const response = await axios.get<Payment[]>(
-        "http://localhost:3000/payments"
-      );
-      setPayments(response.data);
-      setTimeout(async () => {
-        const refreshedResponse = await axios.get<Payment[]>(
+    const fetchAndUpdate = async () => {
+      try {
+        const response = await axios.get<Payment[]>(
           "http://localhost:3000/payments"
         );
-        setPayments(refreshedResponse.data);
+        setPayments(response.data);
         fetchLoans();
-      }, 11000);
-    } catch (error) {
-      console.error("Error fetching payments:", error);
-    }
+      } catch (error) {
+        console.error("Error fetching payments:", error);
+      }
+    };
+
+    await fetchAndUpdate();
+    const intervalId = setInterval(fetchAndUpdate, 5000);
+
+    return () => clearInterval(intervalId);
   };
 
   const clearData = async () => {

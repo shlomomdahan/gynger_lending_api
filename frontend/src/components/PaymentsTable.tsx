@@ -57,31 +57,56 @@ const PaymentsTable: React.FC<PaymentsTableProps> = ({ payments }) => {
             >
               Created At
             </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+            >
+              Updated At
+            </th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-300">
-          {payments.map((payment) => (
-            <tr key={payment.id}>
-              <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                {payment.id}
-              </td>
-              <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
-                ${payment.amount}
-              </td>
-              <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
-                {payment.loan_id}
-              </td>
-              <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
-                {payment.status}
-              </td>
-              <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
-                {payment.external_payment_id}
-              </td>
-              <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
-                {new Date(payment.created_at).toLocaleString()}
-              </td>
-            </tr>
-          ))}
+          {payments
+            .sort((a, b) => a.id - b.id)
+            .map((payment) => (
+              <tr key={payment.id}>
+                <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                  {payment.id}
+                </td>
+                <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+                  ${payment.amount}
+                </td>
+                <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+                  {payment.loan_id}
+                </td>
+                <td className="px-6 py-2 whitespace-nowrap text-sm">
+                  <span
+                    className={
+                      payment.status === "Created"
+                        ? "text-black"
+                        : payment.status === "Pending"
+                        ? "text-yellow-500"
+                        : payment.status === "Successful"
+                        ? "text-green-500"
+                        : payment.status === "Failed"
+                        ? "text-red-500"
+                        : "text-gray-500"
+                    }
+                  >
+                    {payment.status}
+                  </span>
+                </td>
+                <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+                  {payment.external_payment_id}
+                </td>
+                <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+                  {new Date(payment.created_at).toLocaleString()}
+                </td>
+                <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+                  {new Date(payment.updated_at).toLocaleString()}
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

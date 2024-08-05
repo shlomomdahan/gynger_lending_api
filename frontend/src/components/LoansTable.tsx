@@ -58,6 +58,18 @@ const LoansTable: React.FC<LoansTableProps> = ({ loans }) => {
             >
               Status
             </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+            >
+              Created At
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+            >
+              Updated At
+            </th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-300">
@@ -79,7 +91,17 @@ const LoansTable: React.FC<LoansTableProps> = ({ loans }) => {
                 {loan.signer_ids.join(", ")}
               </td>
               <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
-                {loan.is_active ? "Active" : "Inactive"}
+                <span
+                  className={loan.is_active ? "text-green-500" : "text-red-500"}
+                >
+                  {loan.is_active ? "Active" : "Inactive"}
+                </span>
+              </td>
+              <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+                {new Date(loan.created_at).toLocaleString()}
+              </td>
+              <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+                {new Date(loan.updated_at).toLocaleString()}
               </td>
             </tr>
           ))}
