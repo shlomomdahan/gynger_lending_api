@@ -4,6 +4,8 @@
 
 To run this project, you'll need Docker and Docker Compose installed on your machine.
 
+Get Docker: https://www.docker.com
+
 1. Clone the repository:
 
 ```bash
