@@ -5,23 +5,21 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=postgres://test:test@db:5432/gynger_lending
+      - DATABASE_URL=postgres://postgres:123456@db:5432/gynger_lending
     depends_on:
       - db
-
   frontend:
     build: ./frontend
     ports:
       - "3001:3000"
-
   db:
     image: postgres:13
     environment:
       - POSTGRES_DB=gynger_lending
       - POSTGRES_USER=postgres
-      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_PASSWORD=123456
     volumes:
       - ./backend/database.sql:/docker-entrypoint-initdb.d/database.sql
-      - postgres_data:/var/lib/postgresql/data
+
 volumes:
   postgres_data:

@@ -11,9 +11,9 @@ CREATE TABLE signers (
 
 CREATE TABLE loans (
  id SERIAL PRIMARY KEY,
- principal_amount NUMERIC(19, 4) NOT NULL,
- fee_amount NUMERIC(19, 4) NOT NULL,
- outstanding_balance NUMERIC(19, 4) NOT NULL,
+ principal_amount NUMERIC(19, 2) NOT NULL,
+ fee_amount NUMERIC(19, 2) NOT NULL,
+ outstanding_balance NUMERIC(19, 2) NOT NULL,
  signer_ids INTEGER[] NOT NULL,
  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -22,7 +22,7 @@ CREATE TABLE loans (
 
 CREATE TABLE payments (
  id SERIAL PRIMARY KEY,
- amount NUMERIC(19, 4) NOT NULL,
+ amount NUMERIC(19, 2) NOT NULL,
  loan_id INTEGER REFERENCES loans(id),
  status VARCHAR(20),
  external_payment_id VARCHAR(255),
