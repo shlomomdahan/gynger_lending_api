@@ -12,7 +12,7 @@ type SignerFormProps = {
   onSubmitSuccess: () => void;
 };
 
-export default function SignerForm({ onSubmitSuccess }: SignerFormProps) {
+const SignerForm: React.FC<SignerFormProps> = ({ onSubmitSuccess }) => {
   const {
     register,
     handleSubmit,
@@ -66,4 +66,6 @@ export default function SignerForm({ onSubmitSuccess }: SignerFormProps) {
       </button>
     </form>
   );
-}
+};
+
+export default SignerForm;

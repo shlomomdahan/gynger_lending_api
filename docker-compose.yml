@@ -1,7 +1,7 @@
 version: "3"
 services:
   db:
-    image: postgres:13
+    image: postgres:latest
     environment:
       - POSTGRES_DB=gynger_lending_api1
       - POSTGRES_USER=postgres
@@ -10,7 +10,7 @@ services:
       - ./backend/database.sql:/docker-entrypoint-initdb.d/database.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
+      interval: 1s
       retries: 5
 
   backend:

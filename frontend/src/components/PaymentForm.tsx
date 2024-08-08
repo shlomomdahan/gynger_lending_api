@@ -15,7 +15,7 @@ type PaymentFormProps = {
   onSubmitSuccess: () => void;
 };
 
-export default function PaymentForm({ onSubmitSuccess }: PaymentFormProps) {
+const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmitSuccess }) => {
   const {
     register,
     handleSubmit,
@@ -105,4 +105,6 @@ export default function PaymentForm({ onSubmitSuccess }: PaymentFormProps) {
       </button>
     </form>
   );
-}
+};
+
+export default PaymentForm;

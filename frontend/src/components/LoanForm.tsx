@@ -12,7 +12,7 @@ type LoanFormProps = {
   onSubmitSuccess: () => void;
 };
 
-export default function LoanForm({ onSubmitSuccess }: LoanFormProps) {
+const LoanForm: React.FC<LoanFormProps> = ({ onSubmitSuccess }) => {
   const {
     register,
     handleSubmit,
@@ -79,4 +79,6 @@ export default function LoanForm({ onSubmitSuccess }: LoanFormProps) {
       </button>
     </form>
   );
-}
+};
+
+export default LoanForm;

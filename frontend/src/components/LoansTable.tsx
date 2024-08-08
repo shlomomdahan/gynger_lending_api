@@ -1,4 +1,3 @@
-// components/LoansTable.tsx
 import React from "react";
 
 type Loan = {
@@ -19,55 +18,31 @@ type LoansTableProps = {
 const LoansTable: React.FC<LoansTableProps> = ({ loans }) => {
   return (
     <div className="bg-white shadow rounded-lg overflow-hidden">
-      <table className="min-w-full divide-y divide-gray-200">
+      <table className="min-w-full">
         <thead className="bg-gray-600">
           <tr>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
-            >
+            <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase">
               Loans
             </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
-            >
+            <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase">
               Principal Amount
             </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
-            >
+            <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase">
               Fee Amount
             </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
-            >
+            <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase">
               Outstanding Balance
             </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
-            >
+            <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase">
               Signer IDs
             </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
-            >
+            <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase">
               Status
             </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
-            >
+            <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase">
               Created At
             </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
-            >
+            <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase">
               Updated At
             </th>
           </tr>
@@ -75,32 +50,30 @@ const LoansTable: React.FC<LoansTableProps> = ({ loans }) => {
         <tbody className="bg-white divide-y divide-gray-300">
           {loans.map((loan) => (
             <tr key={loan.id}>
-              <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                {loan.id}
-              </td>
-              <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+              <td className="px-6 py-2 text-sm text-gray-500">{loan.id}</td>
+              <td className="px-6 py-2 text-sm text-gray-900">
                 ${loan.principal_amount}
               </td>
-              <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+              <td className="px-6 py-2 text-sm text-gray-900">
                 ${loan.fee_amount}
               </td>
-              <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+              <td className="px-6 py-2 text-sm text-gray-900">
                 ${loan.outstanding_balance}
               </td>
-              <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+              <td className="px-6 py-2 text-sm text-gray-900">
                 {loan.signer_ids.join(", ")}
               </td>
-              <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+              <td className="px-6 py-2 text-sm text-gray-900">
                 <span
                   className={loan.is_active ? "text-green-500" : "text-red-500"}
                 >
                   {loan.is_active ? "Active" : "Inactive"}
                 </span>
               </td>
-              <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+              <td className="px-6 py-2 text-sm text-gray-900">
                 {new Date(loan.created_at).toLocaleString()}
               </td>
-              <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
+              <td className="px-6 py-2 text-sm text-gray-900">
                 {new Date(loan.updated_at).toLocaleString()}
               </td>
             </tr>

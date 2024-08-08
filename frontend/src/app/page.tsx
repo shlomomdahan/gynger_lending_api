@@ -8,6 +8,7 @@ import LoanForm from "../components/LoanForm";
 import LoansTable from "../components/LoansTable";
 import PaymentForm from "../components/PaymentForm";
 import PaymentsTable from "../components/PaymentsTable";
+import { Status } from "../components/StatusIndicator";
 
 type Signer = {
   id: number;
@@ -31,7 +32,7 @@ type Payment = {
   id: number;
   amount: number;
   loan_id: number;
-  status: string;
+  status: Status;
   external_payment_id: string;
   created_at: string;
   updated_at: string;

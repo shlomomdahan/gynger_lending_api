@@ -21,10 +21,18 @@ router.post("/", validateLoan, async (req, res) => {
       .json({ error: "Missing or invalid required fields" });
   }
 
+  const uniqueSignerIds = [...new Set(signerIds)].sort((a, b) => a - b);
+
   try {
     const result = await pool.query(
       "INSERT INTO loans (principal_amount, fee_amount, outstanding_balance, signer_ids, is_active) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-      [principalAmount, feeAmount, principalAmount + feeAmount, signerIds, true]
+      [
+        principalAmount,
+        feeAmount,
+        principalAmount + feeAmount,
+        uniqueSignerIds,
+        true,
+      ]
     );
 
     console.log(`Loan created with ID: ${result.rows[0].id}`);

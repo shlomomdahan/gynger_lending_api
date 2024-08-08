@@ -5,9 +5,9 @@ DROP TABLE IF EXISTS auth_tokens;
 
 CREATE TABLE signers (
  id SERIAL PRIMARY KEY,
- first_name VARCHAR(100) NOT NULL,
- last_name VARCHAR(100) NOT NULL,
- email VARCHAR(255) UNIQUE NOT NULL
+ first_name TEXT NOT NULL,
+ last_name TEXT NOT NULL,
+ email TEXT UNIQUE NOT NULL
 );
 
 CREATE TABLE loans (
@@ -25,8 +25,8 @@ CREATE TABLE payments (
  id SERIAL PRIMARY KEY,
  amount NUMERIC(19, 2) NOT NULL,
  loan_id INTEGER REFERENCES loans(id),
- status VARCHAR(20),
- external_payment_id VARCHAR(255),
+ status TEXT NOT NULL,
+ external_payment_id TEXT UNIQUE NOT NULL,
  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
