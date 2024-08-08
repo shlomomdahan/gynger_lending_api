@@ -52,7 +52,7 @@ This is the Gynger Lending API built with Node.js and PostgreSQL. Follow the ins
    ```
    sudo systemctl start postgresql
    ```
-   
+
 3. Verify PostgreSQL installation:
    ```
    psql --version
@@ -75,6 +75,7 @@ This is the Gynger Lending API built with Node.js and PostgreSQL. Follow the ins
 ## Database Setup
 
 1. **Create the `gynger_lending` database:**
+
    ```
    createdb gynger_lending
    ```
@@ -87,13 +88,21 @@ This is the Gynger Lending API built with Node.js and PostgreSQL. Follow the ins
 ## Start the Server
 
 1. **Start the Node.js server:**
+
+developement mode:
+
+```
+npm run dev
+```
+
+production mode:
+
 ```
 npm start
 ```
+
 2. **The server will be running on http://localhost:3000. You can test the API using the / endpoint:**
+
 ```
 curl http://localhost:3000/
 ```
-
-
-

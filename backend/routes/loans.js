@@ -1,8 +1,18 @@
-const express = require("express");
-const router = express.Router();
-const { pool } = require("../db");
+import { Router } from "express";
+import { pool } from "../db.js";
+import {
+  validateLoan,
+  validateLoanGet,
+  validationResult,
+} from "../utils/validators.js";
 
-router.post("/", async (req, res) => {
+const router = Router();
+
+router.post("/", validateLoan, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array()[0].msg });
+  }
   const { principalAmount, feeAmount, signerIds } = req.body;
 
   if (!principalAmount || !feeAmount || !Array.isArray(signerIds)) {
@@ -27,7 +37,11 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", validateLoanGet, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array()[0].msg });
+  }
   const { loanID } = req.query;
 
   const query = loanID
@@ -51,4 +65,4 @@ router.get("/", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

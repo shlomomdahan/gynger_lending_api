@@ -1,25 +1,29 @@
 version: "3"
 services:
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=gynger_lending_api1
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+    volumes:
+      - ./backend/database.sql:/docker-entrypoint-initdb.d/database.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      retries: 5
+
   backend:
     build: ./backend
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=postgres://postgres:123456@db:5432/gynger_lending
+      - DATABASE_URL=postgres://postgres:123456@db:5432/gynger_lending_api1
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+
   frontend:
     build: ./frontend
     ports:
       - "3001:3000"
-  db:
-    image: postgres:13
-    environment:
-      - POSTGRES_DB=gynger_lending
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=123456
-    volumes:
-      - ./backend/database.sql:/docker-entrypoint-initdb.d/database.sql
-
-volumes:
-  postgres_data:

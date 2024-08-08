@@ -1,7 +1,8 @@
-const { Pool } = require("pg");
+import pg from "pg";
+const { Pool } = pg;
 
 const pool = new Pool({
-  // database: "gynger_lending",
+  // database: "gynger_lending1",
   connectionString: process.env.DATABASE_URL,
 });
 
@@ -15,4 +16,4 @@ const verifyConnection = async () => {
   }
 };
 
-module.exports = { pool, verifyConnection };
+export { pool, verifyConnection };
