@@ -4,7 +4,7 @@
 
 To run this project, you'll need Docker and Docker Compose installed on your machine.
 
-Get Docker: https://www.docker.com
+Get Docker: https://www.docker.com and start it
 
 1. Clone the repository:
 
