@@ -1,7 +1,11 @@
-const express = require("express");
-const router = express.Router();
-const { pool } = require("../db");
-const mockAPI = require("../mockUnreliablePaymentsAPI");
+import { Router } from "express";
+const router = Router();
+import { pool } from "../db";
+import {
+  createAuthToken,
+  getPayment,
+  createPayment,
+} from "../mockUnreliablePaymentsAPI";
 
 function generateRefID(loanID, amount) {
   return `ref-${loanID}-${amount}-${Date.now()}`;
@@ -12,8 +16,8 @@ async function updatePaymentStatus(referenceId, loanID, amount) {
     // Wait for 11 seconds to ensure the mock API has completed its status changes
     await new Promise((resolve) => setTimeout(resolve, 11000));
 
-    const authToken = mockAPI.createAuthToken().token;
-    const payment = await mockAPI.getPayment(referenceId, authToken);
+    const authToken = createAuthToken().token;
+    const payment = await getPayment(referenceId, authToken);
 
     console.log("Payment status:", payment.result.status);
 
@@ -66,7 +70,7 @@ router.post("/", async (req, res) => {
     );
 
     // Call mock Unreliable Payments API
-    const authToken = mockAPI.createAuthToken().token;
+    const authToken = createAuthToken().token;
     const paymentPayload = {
       referenceId,
       amount,
@@ -78,10 +82,7 @@ router.post("/", async (req, res) => {
 
     // send payment to mock API
     // await mockAPI.createPayment(paymentPayload, authToken);
-    const mockApiResponse = await mockAPI.createPayment(
-      paymentPayload,
-      authToken
-    );
+    const mockApiResponse = await createPayment(paymentPayload, authToken);
 
     if (mockApiResponse.error) {
       // If there's an error, rollback the transaction and return the error
@@ -123,4 +124,4 @@ router.get("/", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

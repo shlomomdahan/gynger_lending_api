@@ -1,8 +1,14 @@
-const express = require("express");
-const router = express.Router();
-const { pool } = require("../db");
+import { Router } from "express";
+import { pool } from "../db.js";
+import { validateSigner, validationResult } from "../utils/validators.js";
 
-router.post("/", async (req, res) => {
+const router = Router();
+
+router.post("/", validateSigner, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array()[0].msg });
+  }
   const { firstName, lastName, email } = req.body;
   try {
     const result = await pool.query(
@@ -13,10 +19,16 @@ router.post("/", async (req, res) => {
     console.log(`Signer ${firstName} ${lastName} created.`);
     res.status(201).json(result.rows[0]);
   } catch (err) {
-    console.error(err);
-    res
-      .status(500)
-      .json({ error: "An error occurred while creating the signer." });
+    if (err.code === "23505") {
+      //error code for duplicate emails as sql schema enforce unique email
+      res
+        .status(409)
+        .json({ error: "Email already exists. Please use a different email." });
+    } else {
+      res
+        .status(500)
+        .json({ error: "An error occurred while creating the signer." });
+    }
   }
 });
 
@@ -30,4 +42,4 @@ router.get("/", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

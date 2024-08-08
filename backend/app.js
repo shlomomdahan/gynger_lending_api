@@ -1,16 +1,16 @@
-const express = require("express");
-const cors = require("cors");
-const app = express();
-const { verifyConnection } = require("./db");
+import express, { json } from "express";
+import cors from "cors";
+import { verifyConnection } from "./db.js";
+import signersRoutes from "./routes/signers.js";
+import loansRoutes from "./routes/loans.js";
+import paymentsRoutes from "./routes/payments.js";
+import deleteRoutes from "./routes/clear.js";
+
 const port = 3000;
-const signersRoutes = require("./routes/signers");
-const loansRoutes = require("./routes/loans");
-const paymentsRoutes = require("./routes/payments");
-const deleteRoutes = require("./routes/clear");
+const app = express();
 
 app.use(cors());
-
-app.use(express.json());
+app.use(json());
 
 app.use("/signers", signersRoutes);
 app.use("/loans", loansRoutes);
