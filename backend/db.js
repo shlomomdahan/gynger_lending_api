@@ -3,7 +3,7 @@ const { Pool } = pg;
 
 const pool = new Pool({
   // database: "gynger_lending",
-  connectionString: process.env.DATABASE_URL,
+  connectionString: process.env.DATABASE_URL, //use with docker
 });
 
 const verifyConnection = async () => {
