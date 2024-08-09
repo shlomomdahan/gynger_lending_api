@@ -2,8 +2,8 @@ import pg from "pg";
 const { Pool } = pg;
 
 const pool = new Pool({
-  database: "gynger_lending",
-  // connectionString: process.env.DATABASE_URL,
+  // database: "gynger_lending",
+  connectionString: process.env.DATABASE_URL,
 });
 
 const verifyConnection = async () => {
